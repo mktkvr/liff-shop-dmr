@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://clab.line-scdn.net/0hpElSHBBDL2pRKj-bZ6BQPQ14LAovBDphPR9-Xi8rNCYVaiBAMUwjXhJSOggKR2huJScrbRJrNyUkcWldBDA8WRErODEZYm1sCBpiX3ZWOgoZai5HMRZocAQ">
+    <!-- <link rel="stylesheet" href="index.css"> -->
+    <title>ข้าวตราเพชร ๑๐๑</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+    <style>
+    /* styles.css */
+        body {
+            background-color: #f8f9fa;
+            padding-top: 3.5rem; /* Adjust body padding for sticky navbar */
+            padding-bottom: 3.5rem;
+        }
+        .navbar {
+            padding-top: 0px;
+            padding-bottom: 0px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: #ffffff; /* Navbar background color */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Optional: add shadow for depth */
+        }
+        .footer-navbar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            border-top: 1px solid #ddd;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-around;
+            padding: 5px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .footer-navbar-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #555;
+            text-decoration: none;
+            font-size: 12px;
+            transition: color 0.3s ease, transform 0.3s ease;
+            padding: 0px;
+        }
+        .footer-navbar-btn:hover {
+            text-decoration: none;
+            color: #007bff;
+            transform: translateY(-3px);
+        }
+        .footer-navbar-btn.active {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .footer-navbar-img {
+            width: 25px;
+            height: 25px;
+            margin-bottom: 5px;
+            border-radius: 5px; /* Add rounded corners */
+            transition: transform 0.3s ease;
+        }
+        .footer-navbar-btn:hover .footer-navbar-img {
+            transform: scale(1.1);
+        }
+        .product {
+            border: 0px solid #dee2e6;
+            border-radius: 0.25rem;
+            padding: 0rem;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        .button:after {
+            content: "";
+            background: #90EE90;
+            display: block;
+            position: absolute;
+            padding-top: 300%;
+            padding-left: 350%;
+            margin-left: -20px!important;
+            margin-top: -120%;
+            opacity: 0;
+            transition: all 0.8s
+        }
+        .button:active:after {
+            padding: 0;
+            margin: 0;
+            opacity: 1;
+            transition: 0s
+        }
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+        @media (max-width: 1200px) {
+            .product-list {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        @media (max-width: 992px) {
+            .product-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .product-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .product {
+            max-width: 100%; /* Optional: set max-width to 100% */
+        }
+        .cart-button {
+            margin: 0%;
+            transition: transform 0.5s ease-out;
+            transform-origin: right;
+        }
+        .cart-button.clicked {
+            transform: scale(1.4);
+        }
+        .cart-total {
+            font-size: 20px;
+            text-align: right;
+            margin-top: 10px; /* Optional: adds some space above the total price */
+        }
+        .profile-container {
+            align-items: center;
+            max-width: 100%;
+            margin: 10px auto;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        #pictureUrl {
+            display: block;
+            margin: 0 auto;
+            border-radius: 50%;
+        }
+        .profile-info {
+            margin-top: 0px;
+        }
+        .profile-info p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #333;
+        }
+        .profile-info p b {
+            color: #007BFF;
+        }
+        .address-form {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .address-form label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        .address-form input, .address-form textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .address-form button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .address-form button:hover {
+            background-color: #0056b3;
+        }
+        /* Custom CSS to adjust the position of the label */
+        .modal-header {
+            padding-bottom: 0;
+        }
+
+        .modal-body {
+            padding-top: 0;
+        }
+
+        .form-group {
+            margin-top: 0;
+            margin-bottom: 0px; 
+        }
+        .form-groupFilter {
+            margin-bottom: 20px; 
+        }
+        #cart-full-danger {
+            font-size: 24px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1050; /* Ensure it is above other content */
+            text-align: center;
+            width: auto;
+            padding: 10px 20px; /* Adjust padding as needed */
+            border-radius: 5px; /* Rounded corners */
+        }
+    </style>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a href="webpage.html">                          
+                <img src="https://clab.line-scdn.net/0hw-99zLl-KAIEQDjx6mpXVVYSK2J6bj0JaHV5NnpBdGFiBCkBZGcsN1cSP2dyAzYvZ1pvNH4wdUl2EGcGcE1nBUQ3K05AFCYBXk0lGFQ_N05cADMEXSch" style="width: 30px;" class="navbar-brand" ></img>
+            </a>
+            <div>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <button class="btn cart-button" data-toggle="modal" data-target="#cartModal" >
+                            <img src="https://clab.line-scdn.net/0hA4w1RJJVHhtKSA7cJuNhTBgaHXs0ZgsQJn1PLzRJQXgSAwQdKm8KFTQRB3tlEF02KVJZLTA4Q1A4GFEfPkVRHAo_HVQRfBEmKnsLLyQ3AFcSCAUdEy8X" style="width: 30px;"></img>
+                            <span id="cart-count" class="badge badge-danger">0</span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="cart-full-danger" class="alert alert-danger btn-sm" style="display: none; text-align: center;">
+        ตะกร้าเต็ม กรุณาจัดการสินค้าในตะกร้าก่อน!!
+    </div>
+    <div class="container">
+        <h5 class="my-2 text-center">สินค้า</h5>
+        <div class="form-groupFilter">
+            <label for="categoryFilter">เลือกหมวดหมู่:</label>
+            <select id="categoryFilter" class="form-control" onchange="filterProducts()">
+                <option value="all">ทั้งหมด</option>
+                <!-- Categories will be dynamically added here -->
+            </select>
+        </div>
+        <div id="product-list" class="product-list"></div> 
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <!-- <div class="profile-container d-flex"> -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <img id="pictureUrl" width="30%">
+                    </div>
+                    <div class="col" style="text-align: center;">
+                        <button class="btn btn-outline-warning btn-sm"  data-toggle="modal" data-target="#addressModal" id="editAddressBtn">แก้ไขที่อยู่</button>
+                    </div>
+                    <a id="addressCard">ยังไม่ได้กรอกที่อยู่</a>
+                </div>
+            </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cartModalLabel">ตะกร้าสินค้า</h5>
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button> -->
+                </div>
+                <div class="modal-body">
+                    <div id="cart-items" class="xs-2"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+                    <button id="checkout" class="btn btn-primary" style="display: none;">สั่งซื้อ</button>
+                </div>
+        </div>
+    </div>
+</div>
+<!-- Address Modal -->
+<div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="addressModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="addressModalLabel">กรอกที่อยู่</h6>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span> -->
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="address-form" id="addressForm">
+                    <div class="form-group">
+                        <label for="recipientName" style="font-size: 14px;">ชื่อผู้รับ:</label>
+                        <input type="text" id="recipientName" name="recipientName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" style="font-size: 14px;">เบอร์โทรศัพท์:</label>
+                        <input type="text" id="phone" name="phone" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address" style="font-size: 14px;">ที่อยู่:</label>
+                        <input type="text" id="address" name="address" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="district" style="font-size: 14px;">ตำบล:</label>
+                        <input type="text" id="district" name="district" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="amphoe" style="font-size: 14px;">อำเภอ:</label>
+                        <input type="text" id="amphoe" name="amphoe" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="province" style="font-size: 14px;">จังหวัด:</label>
+                        <input type="text" id="province" name="province" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="zipcode" style="font-size: 14px;">รหัสไปรษณีย์:</label>
+                        <input type="text" id="zipcode" name="zipcode" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">บันทึกที่อยู่</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Profile Modal -->
+<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="profileModalLabel">โปรไฟล์</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="profile-container">
+                    <img id="pictureUrl" width="50%">
+                    <div class="profile-info">
+                        <p id="userId"></p>
+                        <p id="displayName"></p>
+                        <p id="statusMessage"></p>
+                        <p id="getDecodedIDToken"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer Navbar -->
+    <nav class="footer-navbar">
+        <a class="footer-navbar-btn active" href="index.html">
+            <img src="https://clab.line-scdn.net/0heM6TbHKPOmILLSqlZ4ZFNVl_OQJ1Ay9pZxhrVnUsLAFfYiFfbDMzelt0Ly55YjxPaDd9VHFdZyl5fXVmfyB1ZUtaOS1QGTVfaxlxVGVSJTltbSFkUkoz" alt="Store" class="footer-navbar-img">
+            ร้านค้า</a>
+        <a class="footer-navbar-btn" href="profile.html" data-target="#profileModal">
+            <img src="https://clab.line-scdn.net/0hvEZCrTH-KWpnOjmtC5FWPTVoKgoZFDxhCw94Xhk7MiQ8SzFABx06XkBRNAkvYmtHBCBuXB1KdCEVamZuEzdmbSdNKiU8DiZXBwlnZAlFNyY_ejJsPl0g" alt="Profile" class="footer-navbar-img">
+            โปรไฟล์</a>
+    </nav>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.4/axios.min.js"></script>
+    <script>
+        let userId;
+
+    async function initializeLiff() {
+        await liff.init({ liffId: '1661402891-kg2vBR78' });
+        if (!liff.isLoggedIn()) {
+            liff.login();
+        } else {
+            userId = liff.getContext().userId;
+            runApp();
+            updateCart();
+            loadProducts();
+            loadCart();
+        }
+    }
+    // แจ้งเตือนตะกร้าเต็ม
+    function showCartFullWarning() {
+        const warning = document.getElementById('cart-full-danger');
+        warning.style.display = 'block';
+        setTimeout(() => {
+            warning.style.display = 'none';
+        }, 5000); // Hide the warning after 5 seconds
+    }
+
+    // ฟังก์ชันที่ล้างตะกร้าหลังจากสั่งซื้อ
+    function clearCart() {
+        // ล้างข้อมูลใน localStorage
+        if (userId) {
+            localStorage.removeItem(`cart_${userId}`);
+        }
+        cart.length = 0; // ล้างตะกร้าหรืออาจใช้วิธีที่เหมาะสมกับการจัดการข้อมูลตะกร้า
+        updateCart(); // อัพเดตหน้าตะกร้าหลังจากล้าง
+    }
+
+    function runApp() {
+            liff.getProfile().then(profile => {
+                document.getElementById("pictureUrl").src = profile.pictureUrl;
+                document.getElementById("userId").innerHTML = '<b>UserId:</b> ' + profile.userId;
+                document.getElementById("displayName").innerHTML = '<b>DisplayName:</b> ' + profile.displayName;
+                document.getElementById("statusMessage").innerHTML = '<b>StatusMessage:</b> ' + profile.statusMessage;
+                document.getElementById("getDecodedIDToken").innerHTML = '<b>Email:</b> ' + liff.getDecodedIDToken().email;
+            }).catch(err => console.error('Error getting profile', err));
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+    // Function to load address data from localStorage
+    function loadAddressData() {
+        const addressData = localStorage.getItem('addressData');
+        if (addressData) {
+            const address = JSON.parse(addressData);
+            const fullAddress = `
+                ${address.recipientName}
+                ${address.phone}<br>
+                ${address.address}
+                ${address.district}
+                ${address.amphoe}<br>
+                ${address.province}
+                ${address.zipcode}
+            `;
+            document.getElementById('addressCard').innerHTML = fullAddress;
+
+            // Fill form with saved data
+            document.getElementById('recipientName').value = address.recipientName;
+            document.getElementById('phone').value = address.phone;
+            document.getElementById('address').value = address.address;
+            document.getElementById('district').value = address.district;
+            document.getElementById('amphoe').value = address.amphoe;
+            document.getElementById('province').value = address.province;
+            document.getElementById('zipcode').value = address.zipcode;
+        }
+    }
+
+    // Function to save address data to localStorage
+    function saveAddressData(address) {
+        localStorage.setItem('addressData', JSON.stringify(address));
+    }
+
+    // Load address data when the page loads
+    loadAddressData();
+
+    document.getElementById('addressForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Get the form values
+        const address = {
+            recipientName: document.getElementById('recipientName').value,
+            phone: document.getElementById('phone').value,
+            address: document.getElementById('address').value,
+            district: document.getElementById('district').value,
+            amphoe: document.getElementById('amphoe').value,
+            province: document.getElementById('province').value,
+            zipcode: document.getElementById('zipcode').value
+        };
+
+        // Construct the address string
+        const fullAddress = `
+            ${address.recipientName}
+            ${address.phone}<br>
+            ${address.address}
+            ${address.district}
+            ${address.amphoe}<br>
+            ${address.province}
+            ${address.zipcode}
+        `;
+
+        // Update the addressCard element
+        document.getElementById('addressCard').innerHTML = fullAddress;
+
+        // Save the address data to localStorage
+        saveAddressData(address);
+
+        // Close the address modal (if you use Bootstrap modals)
+        $('#addressModal').modal('hide');
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+            const cartModalElement = document.getElementById('cartModal');
+            const editAddressBtn = document.getElementById('editAddressBtn');
+            const closeAddressModalBtn = document.getElementById('closeAddressModalBtn');
+            const addressModalElement = document.getElementById('addressModal');
+            const addressModal = new bootstrap.Modal(addressModalElement, {
+                backdrop: 'static',
+                keyboard: false
+            });
+            
+            // Function to check if address fields are empty
+            const isAddressFormEmpty = () => {
+                const recipientName = document.getElementById('recipientName').value.trim();
+                const phone = document.getElementById('phone').value.trim();
+                const address = document.getElementById('address').value.trim();
+                const district = document.getElementById('district').value.trim();
+                const amphoe = document.getElementById('amphoe').value.trim();
+                const province = document.getElementById('province').value.trim();
+                const zipcode = document.getElementById('zipcode').value.trim();
+                
+                return !recipientName || !phone || !address || !district || !amphoe || !province || !zipcode;
+            };
+
+            // Open the address modal if form is empty
+            if (isAddressFormEmpty()) {
+                editAddressBtn.click();
+            }
+
+            const cartModal = new bootstrap.Modal(cartModalElement, {
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            const addressForm = document.getElementById('addressForm');
+
+            let initialAddressData = {};
+
+            const saveInitialAddressData = () => {
+                initialAddressData = {
+                    recipientName: document.getElementById('recipientName').value,
+                    phone: document.getElementById('phone').value,
+                    address: document.getElementById('address').value,
+                    district: document.getElementById('district').value,
+                    amphoe: document.getElementById('amphoe').value,
+                    province: document.getElementById('province').value,
+                    zipcode: document.getElementById('zipcode').value
+                };
+            };
+
+            const restoreInitialAddressData = () => {
+                document.getElementById('recipientName').value = initialAddressData.recipientName;
+                document.getElementById('phone').value = initialAddressData.phone;
+                document.getElementById('address').value = initialAddressData.address;
+                document.getElementById('district').value = initialAddressData.district;
+                document.getElementById('amphoe').value = initialAddressData.amphoe;
+                document.getElementById('province').value = initialAddressData.province;
+                document.getElementById('zipcode').value = initialAddressData.zipcode;
+            };
+            // Example of how you might open the modal
+            document.getElementById('openCartModalBtn').addEventListener('click', () => {
+                cartModal.show();
+            });
+
+            // Example of how you might hide the modal programmatically
+            document.getElementById('closeCartModalBtn').addEventListener('click', () => {
+                cartModal.hide();
+            });
+
+            editAddressBtn.addEventListener('click', () => {
+                saveInitialAddressData();
+                addressModal.show();
+            });
+
+            closeAddressModalBtn.addEventListener('click', () => {
+                restoreInitialAddressData();
+                addressModal.hide();
+            });
+
+            addressForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Save the address data
+                // Optionally update the addressCard element with new address data
+                addressModal.hide();
+            });
+
+            // Restore initial address data if modal is hidden without submitting
+            addressModalElement.addEventListener('hidden.bs.modal', () => {
+                // If the form is not submitted, restore the initial address data
+                if (!addressForm.checkValidity()) {
+                    restoreInitialAddressData();
+                }
+            });
+        });
+
+
+
+        // Load products from Google Sheets
+        async function loadProducts() {
+            try {
+                const response = await axios.get('https://sheets.googleapis.com/v4/spreadsheets/1BrP4sKXmRVV41uVxtme6U68ROo2YwjaiMwAqSXgni1Q/values/product!A2:E?key=AIzaSyAvfiAtJCUdE_Sxa7REZVTW3n7pCuzJ75U');
+                const products = response.data.values.map(row => ({
+                    name: row[0],
+                    img: row[1],
+                    category: row[2],
+                    pricemkt: parseInt(row[3]),
+                    price: parseInt(row[4])
+                }));
+
+                const categories = [...new Set(products.map(product => product.category))];
+                const categoryFilter = document.getElementById('categoryFilter');
+                categories.forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category;
+                    option.textContent = category;
+                    categoryFilter.appendChild(option);
+                });
+
+                window.products = products; // Store products globally for filtering
+                displayProducts(products);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        }
+
+        // Display products
+        function displayProducts(products) {
+            const productList = document.getElementById('product-list');
+            productList.innerHTML = ''; // Clear current products
+            products.forEach(product => {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'product';
+                productDiv.innerHTML = `
+                    <img src="${product.img}" class="card-img-top" alt="${product.name}">
+                    <div class="card-body" style="text-align: center;">
+                        <h6 class="card-title">${product.name}</h6>
+                        <div style="display: flex; justify-content: center; align-items: center;">
+                            <div class="card-text" style="color: #E4003A; font-size:20px; font-weight: bold;">฿${product.price}</div>
+                            <div class="card-text" style="color: #DDDDDD; font-size:16px; margin-left: 2px; text-decoration: line-through;">฿${product.pricemkt}</div>
+                            <div class="card-text" style="background-color: #FFEDED; color: #E4003A; font-size:16px; margin-left: 2px; border-radius: 5px;">-${calculateDiscountPercentage(product.price, product.pricemkt)}%</div>
+                        </div>
+                        <button class="btn btn-success" style="margin-top: 10px;" onclick="addToCart(${JSON.stringify(product)})">เพิ่มใส่ตะกร้า</button>
+                    </div>
+                `;
+                productDiv.querySelector('button').onclick = () => addToCart(product);
+                productList.appendChild(productDiv);
+            });
+        }
+
+        function calculateDiscountPercentage(price, pricemkt) {
+            let discount = ((pricemkt - price) / pricemkt) * 100;
+            return discount.toFixed(0); // ปัดตัวเลขให้เป็นจำนวนเต็ม
+        }
+
+        // Filter products
+        function filterProducts() {
+              const selectedCategory = document.getElementById('categoryFilter').value;
+              const filteredProducts = selectedCategory === 'all' ? window.products : window.products.filter(product => product.category === selectedCategory);
+              displayProducts(filteredProducts);
+          }
+
+        function saveCart() {
+            if (userId) {
+            localStorage.setItem(`cart_${userId}`, JSON.stringify(cart));
+            }
+        }
+
+        function loadCart() {
+            if (userId) {
+                const savedCart = localStorage.getItem(`cart_${userId}`);
+                if (savedCart) {
+                    cart = JSON.parse(savedCart);
+                    updateCart();
+                }
+            }
+        }
+
+          // Add product to cart
+          let cart = [];
+          function addToCart(product) {
+        if (cart.length >= 7) {
+            showCartFullWarning();
+            animateCartButton();
+        } else {
+            cart.push(product);
+            updateCart();
+            saveCart();
+            animateCartButton();
+        }
+    }
+
+          // Remove product from cart
+          function removeFromCart(index) {
+              cart.splice(index, 1);
+              updateCart();
+              saveCart();
+          }
+
+          function updateCart() {
+    const cartDiv = document.getElementById('cart-items');
+    const cartCount = document.getElementById('cart-count');
+    const checkoutButton = document.getElementById('checkout');
+
+    cartDiv.innerHTML = '';
+
+    // Initialize total price
+    let totalPrice = 0;
+
+    cart.forEach((product, index) => {
+        const productDiv = document.createElement('div');
+        productDiv.className = 'cart-item';
+        productDiv.innerHTML = `
+            <span>${index + 1}.${product.name}</span>
+            <span>${product.price} บาท</span>
+            <button type="button" class="btn-close" onclick="removeFromCart(${index})"></button>
+        `;
+        cartDiv.appendChild(productDiv);
+
+        // Add to total price
+        totalPrice += product.price;
+    });
+
+    // Update cart count
+    cartCount.textContent = `${cart.length}`;
+
+    // Update total price
+    const totalPriceDiv = document.createElement('div');
+    totalPriceDiv.className = 'cart-total';
+    totalPriceDiv.innerHTML = `<strong>🚛 ส่งฟรี⚡ ยอดรวม : ${totalPrice} บาท</strong>`;
+    cartDiv.appendChild(totalPriceDiv);
+
+    // Show or hide checkout button based on cart items
+    checkoutButton.style.display = cart.length > 0 ? 'block' : 'none';
+}
+          
+          // Animate cart button
+          function animateCartButton() {
+            const cartButton = document.querySelector('.cart-button');
+            cartButton.classList.add('clicked');
+
+            setTimeout(() => {
+                cartButton.classList.remove('clicked');
+            }, 200); // Reset to original size after 0.2 seconds
+          }
+
+          // Handle checkout
+document.getElementById('checkout').onclick = async () => {
+    // ดึงข้อมูลที่อยู่จากฟอร์ม
+    const recipientName = document.getElementById('recipientName').value;
+    const phone = document.getElementById('phone').value;
+    const address = document.getElementById('address').value;
+    const district = document.getElementById('district').value;
+    const amphoe = document.getElementById('amphoe').value;
+    const province = document.getElementById('province').value;
+    const zipcode = document.getElementById('zipcode').value;
+
+        // คำนวณยอดรวมจากข้อมูลในตะกร้า
+        const total = cart.reduce((sum, product) => sum + product.price, 0);
+        const currentDateTime = new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' });
+
+        // สร้าง Flex Message
+        const flexMessage = {
+            "type": "flex",
+            "altText": "รายการสั่งซื้อของฉัน",
+            "contents": {
+                "type": "bubble",
+                "body": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                        {
+                            "type": "text",
+                            "text": `วันที่ ${currentDateTime}`,
+                            "weight": "bold",
+                            "size": "xs"
+                        },
+                        {
+                            "type": "text",
+                            "text": "รายการ",
+                            "weight": "bold",
+                            "size": "md",
+                            "margin": "sm"
+                        },
+                        {
+                            "type": "box",
+                            "layout": "vertical",
+                            "margin": "xs",
+                            "spacing": "sm",
+                            "contents": cart.map((product, index) => ({
+                                "type": "box",
+                                "layout": "baseline",
+                                "spacing": "sm",
+                                "contents": [
+                                    {
+                                        "type": "text",
+                                        "text": `${index + 1}. ${product.name}`,
+                                        "color": "#555555",
+                                        "size": "sm",
+                                        "flex": 0
+                                    },
+                                    {
+                                        "type": "text",
+                                        "text": `${product.price} บาท`,
+                                        "color": "#111111",
+                                        "size": "sm",
+                                        "align": "end"
+                                    }
+                                ]
+                            }))
+                        },
+                        {
+                            "type": "separator",
+                            "margin": "xs"
+                        },
+                        {
+                            "type": "box",
+                            "layout": "baseline",
+                            "margin": "xs",
+                            "spacing": "sm",
+                            "contents": [
+                                {
+                                    "type": "text",
+                                    "text": "ยอดรวม",
+                                    "weight": "bold",
+                                    "color": "#555555",
+                                    "size": "md",
+                                    "flex": 0
+                                },
+                                {
+                                    "type": "text",
+                                    "text": `${total} บาท`,
+                                    "weight": "bold",
+                                    "color": "#111111",
+                                    "size": "md",
+                                    "align": "end"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "separator",
+                            "margin": "xs"
+                        },
+                        {
+                            "type": "text",
+                            "text": "🚛 ส่งฟรีทั่วประเทศ",
+                            "weight": "bold",
+                            "color": "#E4003A",
+                            "size": "md",
+                            "margin": "xs",
+                            "align": "center"
+                        },
+                        {
+                            "type": "text",
+                            "text": "ที่อยู่จัดส่ง:",
+                            "weight": "bold",
+                            "size": "sm",
+                            "margin": "sm"
+                        },
+                        {
+                            "type": "box",
+                            "layout": "vertical",
+                            "margin": "xs",
+                            "spacing": "sm",
+                            "contents": [
+                                {
+                                    "type": "box",
+                                    "layout": "baseline",
+                                    "margin": "xs",
+                                    "spacing": "sm",
+                                    "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": `${recipientName}`,
+                                            "color": "#555555",
+                                            "size": "sm"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": ` ${phone}`,
+                                            "color": "#555555",
+                                            "size": "sm"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "box",
+                                    "layout": "baseline",
+                                    "margin": "xs",
+                                    "spacing": "sm",
+                                    "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": `${address}`,
+                                            "color": "#555555",
+                                            "size": "sm"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": `ต. ${district}`,
+                                            "color": "#555555",
+                                            "size": "sm"
+                                        }                    
+                                    ]
+                                },
+                                {
+                                    "type": "box",
+                                    "layout": "baseline",
+                                    "margin": "xs",
+                                    "spacing": "sm",
+                                    "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": `อ. ${amphoe}`,
+                                            "color": "#555555",
+                                            "size": "sm"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": `จ. ${province}`,
+                                            "color": "#555555",
+                                            "size": "sm"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": ` ${zipcode}`,
+                                            "color": "#555555",
+                                            "size": "sm"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        };
+        clearCart(); // ล้างตะกร้าหลังจากส่งข้อความ
+
+        await liff.sendMessages([
+            {
+                type: "text",
+                text: "รายการสั่งซื้อของฉัน",
+            },
+            flexMessage
+        ]);
+
+
+        alert('สั่งซื้อสำเร็จ! ดำเนินการชำระเงินต่อที่แชท');
+        liff.closeWindow(); // ปิดหน้าต่าง LIFF หลังจากส่งข้อความ
+    };
+    initializeLiff();
+
+    </script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

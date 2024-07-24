@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "chrome",
+            "name": "https://line-dmr-shop.web.app/index.html",
+            "request": "launch",
+            "url": "https://line-dmr-shop.web.app/index.html"
+        }
+    ]
+}
