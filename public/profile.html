@@ -87,68 +87,8 @@
             <p id="statusMessage" hidden></p>
             <p id="getDecodedIDToken" hidden></p>
         </div>
-        <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#addressModal">กรอกที่อยู่</button> -->
-    </div>
-
-    <!-- Address Modal -->
-    <div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="addressModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addressModalLabel">กรอกที่อยู่</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form class="address-form" id="addressForm">
-                        <label for="recipientName">ชื่อผู้รับ:</label>
-                        <input type="text" id="recipientName" name="recipientName" required>
-
-                        <label for="addressLine1">ที่อยู่บรรทัดที่ 1:</label>
-                        <input type="text" id="addressLine1" name="addressLine1" required>
-
-                        <label for="addressLine2">ที่อยู่บรรทัดที่ 2:</label>
-                        <input type="text" id="addressLine2" name="addressLine2">
-
-                        <label for="city">เมือง:</label>
-                        <input type="text" id="city" name="city" required>
-
-                        <label for="state">รัฐ/จังหวัด:</label>
-                        <input type="text" id="state" name="state" required>
-
-                        <label for="zipCode">รหัสไปรษณีย์:</label>
-                        <input type="text" id="zipCode" name="zipCode" required>
-
-                        <label for="country">ประเทศ:</label>
-                        <input type="text" id="country" name="country" required>
-
-                        <button type="submit">บันทึกที่อยู่</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Cart Modal -->
-    <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="cartModalLabel">ตะกร้าสินค้า</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="cart-items" class="xs-2"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
-                    <button id="checkout" class="btn btn-primary" style="display: none;">สั่งซื้อ</button>
-                </div>
-            </div>
-        </div>
+        <button class="btn btn-outline-warning" href="address.html">กรอกที่อยู่</button>
+        
     </div>
 
 <!-- Footer Navbar -->
@@ -204,27 +144,7 @@
                 zipCode: document.getElementById('zipCode').value,
                 country: document.getElementById('country').value,
             };
-
-            fetch('https://script.google.com/macros/s/AKfycbyefwZUgxR15TzBmhBJBjAo0SbarN-YV7648RaQXX11Kela_00WuU96E3z0iujvVi2o/exec', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(addressData),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.result === 'success') {
-                    alert('ที่อยู่ถูกบันทึกเรียบร้อยแล้ว!');
-                } else {
-                    alert('การบันทึกที่อยู่ล้มเหลว!');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('เกิดข้อผิดพลาดในการบันทึกที่อยู่!');
-            });
-        });
+       });
     </script>
 </body>
 </html>

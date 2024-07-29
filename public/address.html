@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- W3.CSS -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="address.css" />
+    <style>
+      .footer-navbar {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        border-top: 1px solid #ddd;
+        background-color: #ffffff;
+        display: flex;
+        justify-content: space-around;
+        padding: 5px 0;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .footer-navbar-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #555;
+        text-decoration: none;
+        font-size: 12px;
+        transition: color 0.3s ease, transform 0.3s ease;
+        padding: 0px;
+    }
+    .footer-navbar-btn:hover {
+        text-decoration: none;
+        color: #007bff;
+        transform: translateY(-3px);
+    }
+    .footer-navbar-btn.active {
+        text-decoration: none;
+        color: #007bff;
+    }
+    .footer-navbar-img {
+        width: 25px;
+        height: 25px;
+        margin-bottom: 5px;
+        border-radius: 5px; /* Add rounded corners */
+        transition: transform 0.3s ease;
+    }
+    .footer-navbar-btn:hover .footer-navbar-img {
+        transform: scale(1.1);
+    }
+    </style>
+
+    <title>Thailand Address</title>
+  </head>
+  <body>
+    <div class="w3-container w3-margin-top">
+      <!-- Start Search Content -->
+      <div class="w3-content">
+        <div class="w3-row w3-margin">
+          <h3><i class="fa fa-home"></i> Thailand Search Address</h3>
+          <div class="autocomplete">
+            <input
+              id="search"
+              type="text"
+              name="address"
+              class="w3-input w3-border w3-xlarge"
+              placeholder="Enter address..."
+            />
+            <div id="matchList">
+              <!-- Create math list by JS functions -->
+              <!-- <ul class="w3-ul w3-hoverable w3-border">
+                <li>address 1</li>
+                <li>address 2</li>
+                <li>address 3</li>
+              </ul> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Search Content -->
+
+      <!-- Start Address Input Content-->
+      <div class="w3-content">
+        <div class="w3-row-padding w3-padding-16">
+          <div class="w3-half">
+            <label>ตำบล / แขวง</label>
+            <input
+              id="district"
+              type="text"
+              name="district"
+              class="w3-input w3-border w3-xlarge"
+              placeholder="ตำบล / แขวง"
+            />
+          </div>
+          <div class="w3-half">
+            <label>อำเภอ / เขต</label>
+            <input
+              id="amphoe"
+              type="text"
+              name="amphoe"
+              class="w3-input w3-border w3-xlarge"
+              placeholder="อำเภอ / เขต"
+            />
+          </div>
+        </div>
+        <div class="w3-row-padding w3-padding-16">
+          <div class="w3-half">
+            <label>จังหวัด</label>
+            <input
+              id="province"
+              type="text"
+              name="province"
+              class="w3-input w3-border w3-xlarge"
+              placeholder="จังหวัด"
+            />
+          </div>
+          <div class="w3-half">
+            <label>รหัสไปรษณีย์</label>
+            <input
+              id="zipcode"
+              type="text"
+              name="zipcode"
+              class="w3-input w3-border w3-xlarge"
+              placeholder="รหัสไปรษณีย์"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- End Address Input Content-->
+    </div>
+
+    <!-- Footer Navbar -->
+    <nav class="footer-navbar">
+      <a class="footer-navbar-btn" href="index.html">
+          <img src="https://clab.line-scdn.net/0heM6TbHKPOmILLSqlZ4ZFNVl_OQJ1Ay9pZxhrVnUsLAFfYiFfbDMzelt0Ly55YjxPaDd9VHFdZyl5fXVmfyB1ZUtaOS1QGTVfaxlxVGVSJTltbSFkUkoz" alt="Store" class="footer-navbar-img">
+          ร้านค้า</a>
+      <a class="footer-navbar-btn active" href="#">
+          <img src="https://clab.line-scdn.net/0hvEZCrTH-KWpnOjmtC5FWPTVoKgoZFDxhCw94Xhk7MiQ8SzFABx06XkBRNAkvYmtHBCBuXB1KdCEVamZuEzdmbSdNKiU8DiZXBwlnZAlFNyY_ejJsPl0g" alt="Profile" class="footer-navbar-img">
+          ที่อยู่</a>
+      <a class="footer-navbar-btn" href="profile.html">
+          <img src="https://clab.line-scdn.net/0hvEZCrTH-KWpnOjmtC5FWPTVoKgoZFDxhCw94Xhk7MiQ8SzFABx06XkBRNAkvYmtHBCBuXB1KdCEVamZuEzdmbSdNKiU8DiZXBwlnZAlFNyY_ejJsPl0g" alt="Profile" class="footer-navbar-img">
+          โปรไฟล์</a>
+  </nav>
+
+    <script src="address.js"></script>
+  </body>
+</html>

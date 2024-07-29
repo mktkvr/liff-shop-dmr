@@ -6,6 +6,7 @@
     <link rel="icon" type="image/x-icon" href="https://clab.line-scdn.net/0hpElSHBBDL2pRKj-bZ6BQPQ14LAovBDphPR9-Xi8rNCYVaiBAMUwjXhJSOggKR2huJScrbRJrNyUkcWldBDA8WRErODEZYm1sCBpiX3ZWOgoZai5HMRZocAQ">
     <!-- <link rel="stylesheet" href="index.css"> -->
     <title>ข้าวตราเพชร ๑๐๑</title>
+    
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
@@ -13,9 +14,15 @@
 <style>
         body {
             background-color: #f8f9fa;
-            padding-top: 3.5rem; /* Adjust body padding for sticky navbar */
+            padding-top: 2.7rem; /* Adjust body padding for sticky navbar */
             padding-bottom: 3.5rem;
             }
+        .head-img {
+            width: 80%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
         .navbar {
             padding-top: 0px;
             padding-bottom: 0px;
@@ -244,7 +251,7 @@
         ตะกร้าเต็ม กรุณาจัดการสินค้าในตะกร้าก่อน!!
     </div>
     <div class="container">
-        <h5 class="my-2 text-center">สินค้า</h5>
+        <img class="head-img" src="https://clab.line-scdn.net/0h0a1MmAXMb04MNH-Iv9AQGVBmbC5yGnpFYAE-enI1dAFYb3VLRikhelxENAF9VixmQjlrSU91dwF5byl5WS58fUw1eBVEYGBzeyFoQ19Iei56dGFjbAgoVEk"></img>
         <div class="form-groupFilter">
             <label for="categoryFilter">เลือกหมวดหมู่:</label>
             <select id="categoryFilter" class="form-control" onchange="filterProducts()">
@@ -309,14 +316,37 @@
                     </div>
                     <div class="form-group">
                         <label for="address" style="font-size: 14px;">ที่อยู่:</label>
-                        <input type="text" id="address" name="address" class="form-control" required>
+                        <input type="text" id="address" name="address" class="form-control" placeholder="บ้านเลขที่ / หมู่" required>
                     </div>
+                    <div class="w3-content">
+                        <div class="w3-row w3-margin">
+                          <label><i class="fa fa-home"></i>ค้นหาที่อยู่ของคุณ</label>
+                          <small>กรอกอย่างใดอย่างหนึ่ง ตำบล, อำเภอ, จังหวัด หรือ รหัสไปรษณีย์</small>
+                          <div class="autocomplete">
+                            <input
+                              id="search"
+                              type="text"
+                              name="address"
+                              class="w3-input w3-border w3-xlarge"
+                              placeholder="กรอกที่อยู่..."
+                            />
+                            <div id="matchList">
+                              <!-- Create math list by JS functions -->
+                              <!-- <ul class="w3-ul w3-hoverable w3-border">
+                                <li>address 1</li>
+                                <li>address 2</li>
+                                <li>address 3</li>
+                              </ul> -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     <div class="form-group">
-                        <label for="district" style="font-size: 14px;">ตำบล:</label>
+                        <label for="district" style="font-size: 14px;">ตำบล / แขวง:</label>
                         <input type="text" id="district" name="district" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="amphoe" style="font-size: 14px;">อำเภอ:</label>
+                        <label for="amphoe" style="font-size: 14px;">อำเภอ / เขต</label>
                         <input type="text" id="amphoe" name="amphoe" class="form-control" required>
                     </div>
                     
@@ -337,7 +367,7 @@
 
 <!-- Footer Navbar -->
     <nav class="footer-navbar">
-        <a class="footer-navbar-btn active" href="index.html">
+        <a class="footer-navbar-btn active" href="#">
             <img src="https://clab.line-scdn.net/0heM6TbHKPOmILLSqlZ4ZFNVl_OQJ1Ay9pZxhrVnUsLAFfYiFfbDMzelt0Ly55YjxPaDd9VHFdZyl5fXVmfyB1ZUtaOS1QGTVfaxlxVGVSJTltbSFkUkoz" alt="Store" class="footer-navbar-img">
             ร้านค้า</a>
         <a class="footer-navbar-btn" href="profile.html">
@@ -347,6 +377,7 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.4/axios.min.js"></script>
     <script src="index.js"></script>
+    <script src="address.js"></script>
 
     <script>
     </script>

@@ -1,4 +1,4 @@
-    let userId;
+let userId;
 
 async function initializeLiff() {
     await liff.init({ liffId: '1661402891-kg2vBR78' });
@@ -510,7 +510,7 @@ const zipcode = document.getElementById('zipcode').value;
                                     },
                                     {
                                         "type": "text",
-                                        "text": `ต. ${district}`,
+                                        "text": `${district}`,
                                         "color": "#555555",
                                         "size": "sm"
                                     }                    
@@ -524,13 +524,13 @@ const zipcode = document.getElementById('zipcode').value;
                                 "contents": [
                                     {
                                         "type": "text",
-                                        "text": `อ. ${amphoe}`,
+                                        "text": `${amphoe}`,
                                         "color": "#555555",
                                         "size": "sm"
                                     },
                                     {
                                         "type": "text",
-                                        "text": `จ. ${province}`,
+                                        "text": `${province}`,
                                         "color": "#555555",
                                         "size": "sm"
                                     },
