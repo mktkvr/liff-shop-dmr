@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="https://clab.line-scdn.net/0hpElSHBBDL2pRKj-bZ6BQPQ14LAovBDphPR9-Xi8rNCYVaiBAMUwjXhJSOggKR2huJScrbRJrNyUkcWldBDA8WRErODEZYm1sCBpiX3ZWOgoZai5HMRZocAQ">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <!-- <link rel="stylesheet" href="index.css"> -->
+    <!-- <link rel="stylesheet" href="address.css"> -->
     <title>ข้าวตราเพชร ๑๐๑</title>
     
     <!-- Bootstrap CSS -->
@@ -209,11 +211,74 @@
             padding-top: 0;
         }
         .form-group {
-            margin-top: 0;
-            margin-bottom: 0px; 
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 10px 10px 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+        }
+
+        .form-control:focus + label,
+        .form-control:not(:placeholder-shown) + label {
+            top: -20px;
+            font-size: 12px;
+            color: #007bff;
+            background-color: white;
+        }
+
+        label {
+            position: absolute;
+            top: 0px;
+            left: 5px;
+            font-size: 12px;
+            color: #999;
+            transition: all 0.2s ease-in-out;
+            pointer-events: none;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+        }
+
+        .form-control.invalid {
+            border-color: red;
+        }
+
+        .form-control.invalid + label {
+            color: red;
         }
         .form-groupFilter {
-            margin-bottom: 20px; 
+            top: 10px;
+            bottom: 10px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-family: 'Arial', sans-serif;
+        }
+        .label-filter {
+            font-size: 12px;
+            color: #999;
+            transition: all 0.2s ease-in-out;
+            pointer-events: none;
+        }
+        .form-controlFilter {
+            flex: 1;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
         }
         #cart-full-danger {
             font-size: 24px;
@@ -226,6 +291,43 @@
             width: auto;
             padding: 10px 20px; /* Adjust padding as needed */
             border-radius: 5px; /* Rounded corners */
+        }
+        .input-container {
+            position: relative;
+        }
+        .input-container input {
+            padding-right: 30px; /* Space for the clear button */
+            box-sizing: border-box;
+        }
+        .input-container .clear-btn {
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: none;
+            padding: 0;
+            cursor: pointer;
+            font-size: 16px;
+            color: #aaa;
+        }
+        #matchList {
+            position: absolute;
+            z-index: 99;
+            background-color: white;
+            left: 0;
+            right: 0;
+            /* vertical scroll bar */
+            max-height: 300px;
+            overflow-y: auto;
+            /* prevent horizontal scrollbar */
+            overflow-x: hidden;
+        }
+        #matchList:hover {
+            cursor: pointer;
+        }
+        li > span {
+            pointer-events: none;
         }
 </style>
 </head>
@@ -252,13 +354,15 @@
     </div>
     <div class="container">
         <img class="head-img" src="https://clab.line-scdn.net/0h0a1MmAXMb04MNH-Iv9AQGVBmbC5yGnpFYAE-enI1dAFYb3VLRikhelxENAF9VixmQjlrSU91dwF5byl5WS58fUw1eBVEYGBzeyFoQ19Iei56dGFjbAgoVEk"></img>
+
         <div class="form-groupFilter">
-            <label for="categoryFilter">เลือกหมวดหมู่:</label>
-            <select id="categoryFilter" class="form-control" onchange="filterProducts()">
+            <div class="label-filter" for="categoryFilter">เลือกหมวดหมู่ : </div>
+            <select id="categoryFilter" name="categoryFilter" class="form-controlFilter" onchange="filterProducts()">
                 <option value="all">ทั้งหมด</option>
-                <!-- Categories will be dynamically added here -->
+                <!-- เพิ่มตัวเลือกหมวดหมู่เพิ่มเติมที่นี่ -->
             </select>
         </div>
+
         <div id="product-list" class="product-list"></div> 
     </div>
 
@@ -298,66 +402,46 @@
 <div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="addressModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h6 class="modal-title" id="addressModalLabel">กรอกที่อยู่</h6>
-                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span> -->
-                </button>
-            </div>
             <div class="modal-body">
                 <form class="address-form" id="addressForm">
                     <div class="form-group">
-                        <label for="recipientName" style="font-size: 14px;">ชื่อผู้รับ:</label>
-                        <input type="text" id="recipientName" name="recipientName" class="form-control" required>
+                        <input type="text" id="recipientName" name="recipientName" class="form-control" placeholder=" " >
+                            <label for="recipientName">ชื่อผู้รับ</label>
+                            <div class="error-message" id="recipientNameError"></div>
                     </div>
                     <div class="form-group">
-                        <label for="phone" style="font-size: 14px;">เบอร์โทรศัพท์:</label>
-                        <input type="text" id="phone" name="phone" class="form-control" required>
+                        <input type="text" id="phone" name="phone" class="form-control" placeholder=" " required>
+                            <label for="phone">หมายเลขโทรศัพท์</label>
+                            <div class="error-message" id="phoneError"></div>
                     </div>
                     <div class="form-group">
-                        <label for="address" style="font-size: 14px;">ที่อยู่:</label>
-                        <input type="text" id="address" name="address" class="form-control" placeholder="บ้านเลขที่ / หมู่" required>
+                        <input type="text" id="address" name="address" class="form-control" placeholder=" " required>
+                        <label for="address">ที่อยู่</label>
                     </div>
-                    <div class="w3-content">
-                        <div class="w3-row w3-margin">
-                          <label><i class="fa fa-home"></i>ค้นหาที่อยู่ของคุณ</label>
-                          <small>กรอกอย่างใดอย่างหนึ่ง ตำบล, อำเภอ, จังหวัด หรือ รหัสไปรษณีย์</small>
-                          <div class="autocomplete">
-                            <input
-                              id="search"
-                              type="text"
-                              name="address"
-                              class="w3-input w3-border w3-xlarge"
-                              placeholder="กรอกที่อยู่..."
-                            />
-                            <div id="matchList">
-                              <!-- Create math list by JS functions -->
-                              <!-- <ul class="w3-ul w3-hoverable w3-border">
-                                <li>address 1</li>
-                                <li>address 2</li>
-                                <li>address 3</li>
-                              </ul> -->
-                            </div>
-                          </div>
+                    <div class="form-group">
+                        <div class="input-container">
+                            <input type="text" id="search" name="search" class="form-control" placeholder=" ">
+                            <label for="search">กรอกอย่างใดอย่างหนึ่ง ตำบล อำเภอ จังหวัด</label>
+                            <div class="clear-btn" onclick="document.getElementById('search').value = ''">✖</div>
+                            <div id="matchList"></div>
                         </div>
-                      </div>
-                    <div class="form-group">
-                        <label for="district" style="font-size: 14px;">ตำบล / แขวง:</label>
-                        <input type="text" id="district" name="district" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="amphoe" style="font-size: 14px;">อำเภอ / เขต</label>
-                        <input type="text" id="amphoe" name="amphoe" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="province" style="font-size: 14px;">จังหวัด:</label>
-                        <input type="text" id="province" name="province" class="form-control" required>
+                        <input type="text" id="district" name="district" class="form-control" placeholder=" " required>
+                        <label for="phone">ตำบล / แขวง</label>
                     </div>
                     <div class="form-group">
-                        <label for="zipcode" style="font-size: 14px;">รหัสไปรษณีย์:</label>
-                        <input type="text" id="zipcode" name="zipcode" class="form-control" required>
+                        <input type="text" id="amphoe" name="amphoe" class="form-control" placeholder=" " required>
+                        <label for="phone">อำเภอ / เขต</label>
                     </div>
+                    <div class="form-group">
+                        <input type="text" id="province" name="province" class="form-control" placeholder=" " required>
+                        <label for="phone">จังหวัด</label>
+                    </div>         
+                    <div class="form-group">
+                        <input type="text" id="zipcode" name="zipcode" class="form-control" placeholder=" " required>
+                        <label for="phone">รหัสไปรษณีย์</label>
+                    </div>         
                     <button type="submit" class="btn btn-primary">บันทึกที่อยู่</button>
                 </form>
             </div>

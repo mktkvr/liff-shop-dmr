@@ -434,6 +434,15 @@ const zipcode = document.getElementById('zipcode').value;
                         "contents": [
                             {
                                 "type": "text",
+                                "text": "🚛 ส่งฟรีทั่วประเทศ",
+                                "weight": "bold",
+                                "color": "#E4003A",
+                                "size": "xs",
+                                "margin": "xs",
+                                "align": "center"
+                            },
+                            {
+                                "type": "text",
                                 "text": "ยอดรวม",
                                 "weight": "bold",
                                 "color": "#555555",
@@ -454,15 +463,7 @@ const zipcode = document.getElementById('zipcode').value;
                         "type": "separator",
                         "margin": "xs"
                     },
-                    {
-                        "type": "text",
-                        "text": "🚛 ส่งฟรีทั่วประเทศ",
-                        "weight": "bold",
-                        "color": "#E4003A",
-                        "size": "md",
-                        "margin": "xs",
-                        "align": "center"
-                    },
+                    
                     {
                         "type": "text",
                         "text": "ที่อยู่จัดส่ง:",
@@ -490,7 +491,7 @@ const zipcode = document.getElementById('zipcode').value;
                                     },
                                     {
                                         "type": "text",
-                                        "text": ` ${phone}`,
+                                        "text": `${phone}`,
                                         "color": "#555555",
                                         "size": "sm"
                                     }
@@ -507,13 +508,7 @@ const zipcode = document.getElementById('zipcode').value;
                                         "text": `${address}`,
                                         "color": "#555555",
                                         "size": "sm"
-                                    },
-                                    {
-                                        "type": "text",
-                                        "text": `${district}`,
-                                        "color": "#555555",
-                                        "size": "sm"
-                                    }                    
+                                    }                 
                                 ]
                             },
                             {
@@ -524,10 +519,24 @@ const zipcode = document.getElementById('zipcode').value;
                                 "contents": [
                                     {
                                         "type": "text",
+                                        "text": `${district}`,
+                                        "color": "#555555",
+                                        "size": "sm"
+                                    },
+                                    {
+                                        "type": "text",
                                         "text": `${amphoe}`,
                                         "color": "#555555",
                                         "size": "sm"
                                     },
+                                ]
+                            },
+                            {
+                                "type": "box",
+                                "layout": "baseline",
+                                "margin": "xs",
+                                "spacing": "sm",
+                                "contents": [
                                     {
                                         "type": "text",
                                         "text": `${province}`,

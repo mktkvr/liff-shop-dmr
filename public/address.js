@@ -47,7 +47,7 @@ const outputHtml = (matchItems) => {
     const html = matchItems
       .map(
         (item) =>
-          `<li><span class="w3-large">${item.district}, ${item.amphoe}, ${item.province}, ${item.zipcode}</span><br></li>`
+          `<li><span class="w3-small">${item.district}, ${item.amphoe}, ${item.province}, ${item.zipcode}</span><br></li>`
       )
       .join("");
 
