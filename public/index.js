@@ -434,7 +434,7 @@ const zipcode = document.getElementById('zipcode').value;
                         "contents": [
                             {
                                 "type": "text",
-                                "text": "🚛 ส่งฟรีทั่วประเทศ",
+                                "text": "🚛 ส่งฟรี",
                                 "weight": "bold",
                                 "color": "#E4003A",
                                 "size": "xs",
