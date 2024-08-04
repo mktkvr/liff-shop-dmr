@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Add product to cart
       let cart = [];
       function addToCart(product) {
-    if (cart.length >= 7) {
+    if (cart.length >= 5) {
         showCartFullWarning();
         animateCartButton();
     } else {
@@ -375,7 +375,7 @@ const zipcode = document.getElementById('zipcode').value;
     // สร้าง Flex Message
     const flexMessage = {
         "type": "flex",
-        "altText": "รายการสั่งซื้อของฉัน",
+        "altText": "รอชำระเงิน",
         "contents": {
             "type": "bubble",
             "body": {
@@ -383,17 +383,29 @@ const zipcode = document.getElementById('zipcode').value;
                 "layout": "vertical",
                 "contents": [
                     {
-                        "type": "text",
-                        "text": `วันที่ ${currentDateTime}`,
-                        "weight": "bold",
-                        "size": "xs"
+                        "type": "box",
+                        "layout": "horizontal",
+                        "spacing": "sm",
+                        "contents": [
+                            {
+                                "type": "text",
+                                "text": "รายการสั่งซื้อของฉัน",
+                                "weight": "bold",
+                                "size": "sm",
+                                "margin": "sm",
+                                "align": "center"
+                            }
+                        ]
                     },
                     {
                         "type": "text",
-                        "text": "รายการ",
-                        "weight": "bold",
-                        "size": "md",
-                        "margin": "sm"
+                        "text": `วันที่ ${currentDateTime}`,
+                        "size": "xs",
+                        "align": "end"
+                    },
+                    {
+                        "type": "separator",
+                        "margin": "xs"
                     },
                     {
                         "type": "box",
@@ -439,13 +451,13 @@ const zipcode = document.getElementById('zipcode').value;
                                 "color": "#E4003A",
                                 "size": "xs",
                                 "margin": "xs",
-                                "align": "center"
+                                "align": "start"
                             },
                             {
                                 "type": "text",
                                 "text": "ยอดรวม",
                                 "weight": "bold",
-                                "color": "#555555",
+                                "color": "#E4003A",
                                 "size": "md",
                                 "flex": 0
                             },
@@ -453,7 +465,7 @@ const zipcode = document.getElementById('zipcode').value;
                                 "type": "text",
                                 "text": `${total} บาท`,
                                 "weight": "bold",
-                                "color": "#111111",
+                                "color": "#E4003A",
                                 "size": "md",
                                 "align": "end"
                             }
@@ -463,13 +475,147 @@ const zipcode = document.getElementById('zipcode').value;
                         "type": "separator",
                         "margin": "xs"
                     },
-                    
+                    {
+                        "type": "separator",
+                        "margin": "xs"
+                    },
+                    {
+                        "layout": "horizontal",
+                        "contents": [
+                                {
+                                "layout": "horizontal",
+                                "type": "box",
+                                "maxWidth": "50%",
+                                "contents": [
+                                    {
+                                        "type": "image",
+                                        "url": "https://clab.line-scdn.net/0hJSyrfLQrFXxECwW1scdqKxhZFhw6JQB3KD5ESDoKDjNrXBJ4HR4cZSprSidqfglUGgYRewdKDTMxUFNLEREGTwQKAicMbVZ4HjABTwdJABwcSxRRJDdSZhE",
+                                        // "size": "xxs",
+                                        "size": "20%",
+                                        "gravity": "center"
+                                    },
+                                    {
+                                        "type": "text",
+                                        "weight": "bold",
+                                        "size": "sm",
+                                        "gravity": "center",
+                                        "text": "กสิกรไทย",
+                                        "align": "center",
+                                        "color": "#1DB446"
+                                    }
+                                ]
+                            },
+                            {
+                                "layout": "horizontal",
+                                "type": "box",
+                                "maxWidth": "50%",
+                                "contents": [
+                                    {
+                                        "type": "separator",
+                                        "margin": "xs"
+                                    },
+                                    {
+                                        "align": "center",
+                                        "gravity": "center",
+                                        "color": "#304463",
+                                        "text": "ภาสิตา สว่างเรือง ",
+                                        "size": "xs",
+                                        "type": "text"
+                                    }
+                                ]
+                            }  
+                        ],
+                        "type": "box"
+                      },
+                    {
+                        "contents": [
+                          {
+                            "layout": "vertical",
+                            "type": "box",
+                            "maxWidth": "80%",
+                            "contents": [
+                              {
+                                "align": "center",
+                                "text": "เลขที่บัญชี",
+                                "size": "xs",
+                                "color": "#333F44",
+                                "margin": "sm",
+                                "type": "text",
+                                "wrap": true
+                              },
+                              {
+                                "type": "button",
+                                "style": "secondary",
+                                "gravity": "center",
+                                "height": "sm",
+                                "action": {
+                                  "type": "clipboard",
+                                  "clipboardText": "1593866226",
+                                  "label": "1593866226"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "maxWidth": "20%",
+                            "layout": "vertical",
+                            "type": "box",
+                            "contents": [
+                              {
+                                "margin": "sm",
+                                "size": "xs",
+                                "color": "#333F44",
+                                "text": "คัดลอก",
+                                "wrap": true,
+                                "align": "center",
+                                "type": "text"
+                              },
+                              {
+                                "color": "#333F44",
+                                "style": "secondary",
+                                "adjustMode": "shrink-to-fit",
+                                "type": "button",
+                                "height": "sm",
+                                "gravity": "center",
+                                "action": {
+                                  "label": "📑",
+                                  "type": "clipboard",
+                                  "clipboardText": "1593866226"
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        "type": "box",
+                        "layout": "horizontal"
+                      },
+                      {
+                        "type": "box",
+                        "contents": [
+                          {
+                            "text": "**แจ้งสลิปการโอนในแชทนี้เท่านั้น**",
+                            "align": "center",
+                            "type": "text",
+                            "gravity": "center",
+                            "weight": "bold",
+                            "color": "#E4003A",
+                            "size": "xs"
+                          }
+                        ],
+                        "layout": "horizontal",
+                        "margin": "sm"
+                      },
+                      {
+                        "type": "separator",
+                        "margin": "xs"
+                      },
                     {
                         "type": "text",
                         "text": "ที่อยู่จัดส่ง:",
                         "weight": "bold",
-                        "size": "sm",
-                        "margin": "sm"
+                        "size": "xs",
+                        "margin": "xs",
+                        "color": "#555555"
                     },
                     {
                         "type": "box",
@@ -485,15 +631,9 @@ const zipcode = document.getElementById('zipcode').value;
                                 "contents": [
                                     {
                                         "type": "text",
-                                        "text": `${recipientName}`,
+                                        "text": `${recipientName}  ${phone}`,
                                         "color": "#555555",
-                                        "size": "sm"
-                                    },
-                                    {
-                                        "type": "text",
-                                        "text": `${phone}`,
-                                        "color": "#555555",
-                                        "size": "sm"
+                                        "size": "xs"
                                     }
                                 ]
                             },
@@ -501,13 +641,13 @@ const zipcode = document.getElementById('zipcode').value;
                                 "type": "box",
                                 "layout": "baseline",
                                 "margin": "xs",
-                                "spacing": "sm",
+                                "spacing": "xs",
                                 "contents": [
                                     {
                                         "type": "text",
                                         "text": `${address}`,
                                         "color": "#555555",
-                                        "size": "sm"
+                                        "size": "xs"
                                     }                 
                                 ]
                             },
@@ -515,39 +655,13 @@ const zipcode = document.getElementById('zipcode').value;
                                 "type": "box",
                                 "layout": "baseline",
                                 "margin": "xs",
-                                "spacing": "sm",
+                                "spacing": "xs",
                                 "contents": [
                                     {
                                         "type": "text",
-                                        "text": `${district}`,
+                                        "text": `${district} ${amphoe} ${province} ${zipcode}`,
                                         "color": "#555555",
-                                        "size": "sm"
-                                    },
-                                    {
-                                        "type": "text",
-                                        "text": `${amphoe}`,
-                                        "color": "#555555",
-                                        "size": "sm"
-                                    },
-                                ]
-                            },
-                            {
-                                "type": "box",
-                                "layout": "baseline",
-                                "margin": "xs",
-                                "spacing": "sm",
-                                "contents": [
-                                    {
-                                        "type": "text",
-                                        "text": `${province}`,
-                                        "color": "#555555",
-                                        "size": "sm"
-                                    },
-                                    {
-                                        "type": "text",
-                                        "text": ` ${zipcode}`,
-                                        "color": "#555555",
-                                        "size": "sm"
+                                        "size": "xs"
                                     }
                                 ]
                             }
@@ -562,13 +676,13 @@ const zipcode = document.getElementById('zipcode').value;
     await liff.sendMessages([
         {
             type: "text",
-            text: "รายการสั่งซื้อของฉัน",
+            text: "รายการสั่งซื้อ - รอชำระเงิน",
         },
         flexMessage
     ]);
 
 
-    alert('สั่งซื้อสำเร็จ! ดำเนินการชำระเงินต่อที่แชท');
+    alert('สั่งซื้อสำเร็จ! ดำเนินการชำระเงินต่อในแชท');
     liff.closeWindow(); // ปิดหน้าต่าง LIFF หลังจากส่งข้อความ
 };
 initializeLiff();
